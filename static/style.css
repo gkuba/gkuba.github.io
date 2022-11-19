@@ -1,0 +1,38 @@
+.logo {
+    color: #f8f8f2;
+}
+
+.menu__inner li {
+    color: #bd93f9;
+}
+
+.menu__inner li:hover {
+    color: #ff79c6;
+}
+
+.post-cover img {
+    
+    border-radius: 0px;
+    box-shadow: 0 0 0 ;
+}
+
+.post-title {
+    color: #bd93f9;
+}
+
+a {
+    color: #bd93f9;
+}
+
+a:hover {
+    color: #ff79c6;
+}
+
+body.dark-theme {
+    --background: #282a36	;
+    --background-secondary: #44475a;
+    --header: #44475a;
+    --color: #f8f8f2;
+    --color-secondary: #bcc2cd;
+    --border-color: #4a4b50;
+}
