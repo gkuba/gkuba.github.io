@@ -13,9 +13,9 @@ The templates I have created can be found on my GitHub. Most of these have been 
 [My AMP Templates](https://github.com/gkuba/GKuba-AMPTemplates)
 
 - 7 Days to Die
- - I have helped add in the Undead Legacy Overhaul Mod to this template as well as quality of life fixes.
- - I added Darkness Falls Stable support as well.
+  - I have helped add in the Undead Legacy Overhaul Mod to this template as well as quality of life fixes.
+  - I added Darkness Falls Stable support as well.
 
 - Valheim
- - Added BepInEx standalone install option.
- - Added Valheim Plus install option and config settings in the UI.
+  - Added BepInEx standalone install option.
+  - Added Valheim Plus install option and config settings in the UI.
