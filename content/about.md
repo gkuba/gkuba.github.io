@@ -1,17 +1,29 @@
 ---
-title: "About Me"
-draft: false
+title: "About"
+description: "Who GKuba is and what this site is for."
+layout: "about"
+facts: ["Utah", "CachyOS on the desktop", "Debian on the servers", "Streams on Twitch now and then"]
+work:
+  - group: linux
+    title: "Linux setup"
+    text: "CachyOS is my daily driver for gaming and coding, and Debian runs my servers. One script takes a fresh desktop install to my full setup, and my dotfiles keep the shell, prompt and editor the same on every machine."
+    links:
+      - { name: "Arch-GKuba", url: "/projects/arch-gkuba/" }
+      - { name: "Dotfiles", url: "/projects/dotfiles/" }
+  - group: tools
+    title: "Tools"
+    text: "Small things I need myself, cleaned up enough to share. A logger for a GPU that keeps dropping off the bus, and the installer template my setup scripts are built on."
+    links:
+      - { name: "System Telemetry", url: "/projects/system-telemetry/" }
+      - { name: "InstallScriptTemplate", url: "/projects/installscripttemplate/" }
+  - group: games
+    title: "Game mods and servers"
+    text: "Mods for the games my community plays, plus the server settings we run them with. My older AMP templates are kept around but deprecated."
+    links:
+      - { name: "Nivalis Body Swap", url: "https://www.nexusmods.com/nivalisnights/mods/146" }
+      - { name: "SCUM server settings", url: "/projects/scum-server-settings/" }
 ---
 
-My name is GKuba and I am an average computer nerd who likes to dabble in various areas such as streaming on twitch and automating my home servers.
-In these posts, I will be adding more documentation to some of my repositories as well as other cool things I'm working on in the hopes that it will help someone else down the line.
+I'm GKuba, an average computer nerd from Utah. I run home servers and game servers for my community, and spend too much time making my Linux desktop just right.
 
-Some of the projects I've been working on include:
-
-- **AMP Templates** - Cubecoders AMP is self-hosted game server software that comes with Templates for deploying your game servers. I have been helping update and modify templates for the games I play to make them easier to use and feature-rich.
-
-- **Modding** - I've been working on mods for various games I play such as Cyberpunk 2077 and 7 Days to Die when I get time.
-
-- **Debian Post Install Script** - I have moved from using Ubuntu over to Debian and have a few different boxes running it. So I wrote a script to help install the packages and tools I need when doing a fresh Debian install.
-
-- **My Dot Files** - For those new installs it's nice to have synchronized settings and configs on all boxes. So I made a script for grabbing and installing my Linux dotfiles. This keeps things like VIM and my shell prompt the same.
+This site is where I document my projects, in the hope that they help someone else down the line.

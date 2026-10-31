@@ -1,0 +1,30 @@
+{{ $group := index (where hugo.Data.projects.groups "id" .group) 0 }}
+{{ $gh := dict }}
+{{ with .repo }}{{ $gh = index (partialCached "gh-repos.html" "gh") (index (split . "/") 1) | default dict }}{{ end }}
+{{ $href := partial "project-url.html" . }}
+<article class="card c-{{ $group.color }}{{ if .image }} has-img{{ end }}" data-group="{{ .group }}">
+  {{ with .image }}{{ with resources.Get (printf "images/%s" .) }}{{ $i := .Resize "640x webp q80" }}
+  <img class="card-img" src="{{ $i.RelPermalink }}" width="{{ $i.Width }}" height="{{ $i.Height }}" alt="" loading="lazy" decoding="async">
+  {{ end }}{{ end }}
+  <div class="card-head">
+    <span class="card-group">{{ $group.name }}</span>
+    {{ with .status }}<span class="badge b-{{ . }}">{{ . }}</span>{{ end }}
+  </div>
+  <h3><a class="card-link" href="{{ $href }}">{{ .name }}</a></h3>
+  <p>{{ .blurb }}</p>
+  {{ if or $gh.language $gh.pushed_at }}
+  <p class="gh-meta">
+    {{ with $gh.language }}<span class="lang lang-{{ . | urlize }}">{{ . }}</span>{{ end }}
+    {{ with $gh.pushed_at }}{{ $t := time . }}<span title="Last push {{ $t.Format "2 Jan 2006" }}">updated {{ $t.Format "Jan 2006" }}</span>{{ end }}
+    {{ with $gh.stargazers_count }}<span>★ {{ . }}</span>{{ end }}
+  </p>
+  {{ end }}
+  {{ with .install }}<pre class="cmd"><code>{{ . }}</code></pre>{{ end }}
+  <div class="card-foot">
+    {{ with .tags }}<ul class="tags">{{ range . }}<li>{{ with partial "tag-url.html" . }}<a href="{{ . }}">{{ end }}{{ . }}{{ with partial "tag-url.html" . }}</a>{{ end }}</li>{{ end }}</ul>{{ end }}
+    <span class="links">
+      {{ with .repo }}<a href="https://github.com/{{ . }}">GitHub ↗</a>{{ end }}
+      {{ with .nexus }}<a href="{{ . }}">Nexus ↗</a>{{ end }}
+    </span>
+  </div>
+</article>

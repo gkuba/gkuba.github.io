@@ -1,0 +1,61 @@
+{{ define "main" }}
+{{ $projects := hugo.Data.projects.projects }}
+<section class="hero">
+  <div class="hero-text">
+    <p class="kicker"><span class="dot"></span> Linux · tools · game mods</p>
+    <h1>Hi, I'm <span class="grad">{{ site.Params.author }}</span>.</h1>
+    <div class="lede">{{ .Content }}</div>
+    <p class="cta">
+      <a class="btn" href="{{ "projects/" | relURL }}">See projects</a>
+      <a class="btn ghost" href="{{ "about/" | relURL }}">About me</a>
+      <a class="btn ghost" href="{{ site.Params.github }}">GitHub ↗</a>
+    </p>
+  </div>
+  {{ $cmds := slice }}
+  {{ range $projects }}{{ $cmds = $cmds | append (dict "n" (.name | lower | replaceRE "[^a-z0-9]+" "-") "t" .name "g" .group "u" (partial "project-url.html" .) "b" .blurb) }}{{ end }}
+  <div class="term" data-term='{{ $cmds | jsonify }}' data-about="{{ "about/" | relURL }}" data-setup="{{ "setup/" | relURL }}" data-posts="{{ "posts/" | relURL }}" data-tags="{{ "tags/" | relURL }}">
+    <div class="term-bar"><i></i><i></i><i></i><span>gkuba@tuxgamer: ~</span></div>
+<pre class="term-body" aria-live="polite"><b class="t-pr">❯</b> whoami
+<span class="t-out">gkuba · linux tinkerer · modder · server wrangler</span>
+<b class="t-pr">❯</b> ls ~/projects
+{{ range $projects }}{{ $c := "t-dir" }}{{ if eq .group "tools" }}{{ $c = "t-tool" }}{{ else if eq .group "games" }}{{ $c = "t-game" }}{{ end }}<a class="{{ $c }}" href="{{ partial "project-url.html" . }}">{{ .name | lower | replaceRE "[^a-z0-9]+" "-" }}/</a>  {{ end }}
+</pre>
+    <form class="term-in" hidden>
+      <label for="term-cmd"><b class="t-pr">❯</b><span class="sr-only">Terminal command</span></label>
+      <input id="term-cmd" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="type help">
+    </form>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Featured</h2>
+  <div class="grid">
+    {{ range where $projects "featured" true }}{{ partial "project-card.html" . }}{{ end }}
+  </div>
+  <p class="more"><a href="{{ "projects/" | relURL }}">All {{ len $projects }} projects →</a></p>
+</section>
+
+<section class="now">
+  <div class="now-text">
+    <h2 class="sec">Now</h2>
+    <p>{{ site.Params.now }}</p>
+    <p class="tag-links">Browse by topic: {{ range first 8 site.Taxonomies.tags.ByCount }}<a href="{{ .Page.RelPermalink }}">#{{ .Page.Title }}</a> {{ end }}<a href="{{ "tags/" | relURL }}">all tags →</a></p>
+  </div>
+  {{ with partialCached "gh-commits.html" "c" }}
+  <div class="commits">
+    <h2 class="sec">Recent commits</h2>
+    <ol>
+      {{ range . }}
+      <li><a href="{{ .url }}"><code>{{ .sha }}</code><span class="c-msg">{{ .msg }}</span></a><span class="c-meta">{{ .project }} · <time datetime="{{ .date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .date.Format "2 Jan" }}</time></span></li>
+      {{ end }}
+    </ol>
+  </div>
+  {{ end }}
+</section>
+
+<section>
+  <h2 class="sec">Latest posts</h2>
+  {{ partial "post-list.html" (first 4 (where (where site.RegularPages "Section" "posts") "Params.archived" "!=" true)) }}
+  <p class="more"><a href="{{ "posts/" | relURL }}">All posts →</a></p>
+</section>
+{{ end }}

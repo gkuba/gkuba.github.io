@@ -1,0 +1,7 @@
+{{ define "main" }}
+<h1 class="page-title">{{ .Title }}</h1>
+{{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
+{{ $pager := .Paginate .Pages }}
+{{ partial "post-list.html" $pager.Pages }}
+{{ template "_internal/pagination.html" . }}
+{{ end }}

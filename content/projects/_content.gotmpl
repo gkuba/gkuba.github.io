@@ -1,0 +1,31 @@
+{{/* One page per project from data/projects.yaml. The body is the repo README, fetched at build time. */}}
+{{ $repos := dict }}
+{{ with try (resources.GetRemote "https://api.github.com/users/gkuba/repos?per_page=100") }}
+  {{ with .Value }}{{ range . | transform.Unmarshal }}{{ $repos = merge $repos (dict .name .) }}{{ end }}{{ end }}
+{{ end }}
+{{ range hugo.Data.projects.projects }}
+  {{ if not (and .page (hasPrefix .page "/projects/")) }}
+    {{ $md := "" }}
+    {{ $dates := dict }}
+    {{ with .repo }}
+      {{ with try (resources.GetRemote (printf "https://raw.githubusercontent.com/%s/HEAD/README.md" .)) }}
+        {{ with .Value }}{{ $md = .Content }}{{ end }}
+      {{ end }}
+      {{ $raw := printf "https://raw.githubusercontent.com/%s/HEAD/" . }}
+      {{ $blob := printf "https://github.com/%s/blob/HEAD/" . }}
+      {{ $md = $md | replaceRE `\A\s*#\s[^\n]*\n` "" }}
+      {{ $md = $md | replaceRE `!\[([^\]]*)\]\(([^)h#/][^)]*)\)` (printf "![$1](%s$2)" $raw) }}
+      {{ $md = $md | replaceRE `\]\(([^)h#/][^)]*)\)` (printf "](%s$1)" $blob) }}
+      {{ with index $repos (index (split . "/") 1) }}{{ $dates = dict "lastmod" (time .pushed_at) "date" (time .created_at) }}{{ end }}
+    {{ end }}
+    {{ $page := dict
+      "kind" "page"
+      "path" (.name | urlize)
+      "title" .name
+      "summary" .blurb
+      "params" (dict "project" . "tags" .tags "description" .blurb)
+      "content" (dict "mediaType" "text/markdown" "value" $md)
+    }}
+    {{ $.AddPage (merge $page (dict "dates" $dates)) }}
+  {{ end }}
+{{ end }}

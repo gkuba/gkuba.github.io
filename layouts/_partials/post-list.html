@@ -1,0 +1,13 @@
+<div class="posts">
+  {{ range . }}
+  <article class="post">
+    <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2006" }}</time>
+    <div>
+      <h3><a class="card-link" href="{{ .RelPermalink }}">{{ .Title }}</a>{{ if .Params.archived }}<span class="badge b-archived">archived</span>{{ end }}</h3>
+      {{ with .Description }}<p>{{ . }}</p>{{ end }}
+      {{ with .GetTerms "tags" }}<ul class="tags">{{ range . }}<li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>{{ end }}</ul>{{ end }}
+    </div>
+    <span class="post-arrow" aria-hidden="true">→</span>
+  </article>
+  {{ end }}
+</div>

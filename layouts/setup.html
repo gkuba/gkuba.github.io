@@ -1,0 +1,22 @@
+{{ define "main" }}
+<header class="page-head">
+  <h1 class="page-title">{{ .Title }}</h1>
+  <div class="lede">{{ .Content }}</div>
+</header>
+{{ with hugo.Data.setup }}
+<section class="rig">
+  <h2 class="sec">The rig</h2>
+  <div class="rig-grid">
+    {{ range .rig }}<div class="spec"><span>{{ .k }}</span><b>{{ .v }}</b></div>{{ end }}
+  </div>
+</section>
+<div class="setup-grid">
+  {{ range .groups }}
+  <section class="setup-card c-{{ .color }}">
+    <h2>{{ .name }}</h2>
+    <dl>{{ range .items }}<dt>{{ .k }}</dt><dd>{{ if .u }}<a href="{{ .u }}">{{ .v }} ↗</a>{{ else }}{{ .v }}{{ end }}</dd>{{ end }}</dl>
+  </section>
+  {{ end }}
+</div>
+{{ end }}
+{{ end }}

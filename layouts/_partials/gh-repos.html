@@ -1,0 +1,10 @@
+{{/* Public repos from the GitHub API at build time, keyed by repo name. Empty if the call fails. */}}
+{{ $repos := dict }}
+{{ with try (resources.GetRemote "https://api.github.com/users/gkuba/repos?per_page=100") }}
+  {{ with .Value }}
+    {{ range . | transform.Unmarshal }}
+      {{ $repos = merge $repos (dict .name .) }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+{{ return $repos }}

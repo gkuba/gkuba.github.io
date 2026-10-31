@@ -1,0 +1,89 @@
+groups:
+  - id: linux
+    name: Linux setup
+    color: green
+    blurb: Getting a fresh install to my desktop, the same way every time.
+  - id: tools
+    name: Tools
+    color: cyan
+    blurb: Small things I needed, cleaned up enough to share.
+  - id: games
+    name: Games & mods
+    color: pink
+    blurb: Mods and server setup for the games my community plays.
+
+projects:
+  - name: Arch-GKuba
+    group: linux
+    featured: true
+    blurb: Post-install wizard for Arch-based systems like CachyOS. Picks package groups, desktop assets, a KDE Plasma config or Dank Shell on Hyprland, and shows the whole plan before anything changes.
+    tags: [Bash, Arch, CachyOS]
+    repo: gkuba/Arch-GKuba
+    page: /posts/arch-gkuba/
+    install: bash <(curl -fsSL https://raw.githubusercontent.com/gkuba/Arch-GKuba/main/post-install.sh)
+
+  - name: Dotfiles
+    group: linux
+    featured: true
+    blurb: Home-directory config kept in a Git bare repo. A full-screen wizard installs Zsh, Starship, fzf, eza, Fastfetch and Neovim, then deploys the dotfiles. Add --dry-run to preview.
+    tags: [Bash, Zsh, Starship]
+    repo: gkuba/dotfiles
+    page: /posts/my-dotfiles/
+    install: bash <(curl -fsSL https://raw.githubusercontent.com/gkuba/dotfiles/master/setup-dotfiles.sh)
+
+  - name: DESetupLinux
+    group: linux
+    blurb: Desktop assets used by Arch-GKuba. Wallpapers, cursor themes, a CoolerControl profile and the Violet-Noir Dank Shell theme with its Hyprland settings.
+    tags: [Hyprland, Dank Shell, Theme]
+    repo: gkuba/DESetupLinux
+
+  - name: System Telemetry
+    group: tools
+    featured: true
+    blurb: Linux logger for tracking down an NVIDIA GPU that drops off the bus. Samples the GPU every 2 seconds, watches the kernel log, and saves a crash bundle the moment the GPU is lost.
+    tags: [Bash, NVIDIA, systemd]
+    repo: gkuba/System-Telemetry
+
+  - name: ProgressCrabs
+    image: progresscrabs.png
+    group: tools
+    featured: true
+    blurb: Claude Code mod that adds a live progress band above the prompt and a side-session panel drawn as little crabs. Dracula by default, with ten more themes.
+    tags: [TypeScript, Claude Code]
+    repo: gkuba/ProgressCrabs
+
+  - name: InstallScriptTemplate
+    group: tools
+    blurb: Starting point for interactive Bash installers. A full-screen wizard that fits 80×24, a dry-run-aware helper for every system change, and live output during the install.
+    tags: [Bash, TUI]
+    repo: gkuba/InstallScriptTemplate
+
+  - name: ReelAnvil
+    image: reelanvil.png
+    group: tools
+    status: prototype
+    blurb: Planned self-hosted app for turning authorized long-form video into short clips you review before they go out. Import, transcribe, find candidates, render with FFmpeg, then approve.
+    tags: [Go, FFmpeg, Self-hosted]
+    repo: gkuba/ReelAnvil
+
+  - name: Nivalis Body Swap
+    image: nivalis-body-swap.png
+    group: games
+    featured: true
+    blurb: BepInEx mod for Nivalis Nights. Copy the look of any NPC you meet, or pick one from a built-in character browser, then restore your own whenever you like.
+    tags: [C#, BepInEx, Unity]
+    nexus: https://www.nexusmods.com/nivalisnights/mods/146
+
+  - name: AMP templates
+    group: games
+    status: deprecated
+    blurb: No longer maintained. Game server templates for CubeCoders AMP. Added Undead Legacy and Darkness Falls to 7 Days to Die, and BepInEx and Valheim Plus options to Valheim.
+    tags: [AMP, Game servers]
+    repo: gkuba/GKuba_AMPTemplates
+    page: /projects/amp-templates/
+
+  - name: SCUM server settings
+    group: games
+    blurb: Server settings for the Pixelville community's SCUM server.
+    tags: [SCUM, Game servers]
+    repo: gkuba/SCUM-Server-Settings

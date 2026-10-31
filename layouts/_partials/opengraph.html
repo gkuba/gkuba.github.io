@@ -1,0 +1,21 @@
+{{ $title := cond .IsHome site.Title .Title }}
+{{ $desc := .Description | default .Params.description | default site.Params.description }}
+<meta property="og:title" content="{{ $title }}">
+<meta property="og:description" content="{{ $desc }}">
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:site_name" content="{{ site.Title }}">
+{{ $kicker := "gkuba.tuxgamer.com" }}
+{{ if eq .Section "posts" }}{{ $kicker = "gkuba.tuxgamer.com / posts" }}{{ else if eq .Section "projects" }}{{ $kicker = "gkuba.tuxgamer.com / projects" }}{{ end }}
+{{ $bold := resources.Get "fonts/Inter-ExtraBold.ttf" }}
+{{ $mono := resources.Get "fonts/JetBrainsMono-Medium.ttf" }}
+{{ $img := resources.Get "images/og-base.png" | images.Filter
+  (images.Text $kicker (dict "font" $mono "color" "#bd93f9" "size" 30 "x" 80 "y" 90))
+  (images.Text ($title | truncate 70) (dict "font" $bold "color" "#f8f8f2" "size" 76 "linespacing" 12 "x" 80 "y" 170))
+  (images.Text ($desc | truncate 140) (dict "font" $mono "color" "#bcc2cd" "size" 26 "linespacing" 10 "x" 80 "y" 440))
+}}
+{{ $img = $img.Process "jpg q82" | resources.Copy (path.Join "og" .RelPermalink "card.jpg") }}
+<meta property="og:image" content="{{ $img.Permalink }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">

@@ -1,0 +1,3 @@
+{{ $u := "" }}
+{{ with site.GetPage (printf "/tags/%s" (. | urlize)) }}{{ $u = .RelPermalink }}{{ end }}
+{{ return $u }}

@@ -1,0 +1,50 @@
+{{ define "main" }}
+{{ $groups := hugo.Data.projects.groups }}
+{{ $posts := where site.RegularPages "Section" "posts" }}
+{{ $first := index ($posts.ByDate) 0 }}
+<section class="about-hero">
+  <div class="avatar">
+    {{ with resources.Get "images/avatar.jpg" }}
+      {{ $a := .Resize "240x webp q85" }}{{ $b := .Resize "480x webp q85" }}<img src="{{ $a.RelPermalink }}" srcset="{{ $a.RelPermalink }} 1x, {{ $b.RelPermalink }} 2x" width="120" height="120" alt="Portrait of {{ site.Params.author }}">
+    {{ end }}
+  </div>
+  <div>
+    <p class="kicker"><span class="dot"></span> About</p>
+    <h1>Hi, I'm <span class="grad">{{ site.Params.author }}</span>.</h1>
+    <div class="lede">{{ .Content }}</div>
+    {{ with .Params.facts }}<ul class="facts">{{ range . }}<li>{{ . }}</li>{{ end }}</ul>{{ end }}
+  </div>
+</section>
+
+<section class="stats">
+  <div><b>{{ len hugo.Data.projects.projects }}</b><span>projects</span></div>
+  <div><b>{{ len (where $posts "Params.archived" "!=" true) }}</b><span>posts</span></div>
+  <div><b>{{ len $groups }}</b><span>areas</span></div>
+  {{ with $first }}<div><b>{{ .Date.Year }}</b><span>writing here since</span></div>{{ end }}
+</section>
+
+<section>
+  <h2 class="sec">What I work on</h2>
+  <div class="work-grid">
+    {{ range .Params.work }}
+    {{ $g := index (where $groups "id" .group) 0 }}
+    <article class="work c-{{ $g.color }}">
+      <span class="card-group">{{ $g.name }}</span>
+      <h3>{{ .title }}</h3>
+      <p>{{ .text }}</p>
+      <p class="work-links">{{ range .links }}<a href="{{ .url }}">{{ .name }}{{ if hasPrefix .url "http" }} ↗{{ else }} →{{ end }}</a>{{ end }}</p>
+    </article>
+    {{ end }}
+  </div>
+  <p class="more"><a href="{{ "projects/" | relURL }}">See every project →</a></p>
+</section>
+
+<section class="find">
+  <h2 class="sec">Find me</h2>
+  <div class="find-row">
+    <a class="find-card" href="{{ site.Params.github }}"><b>GitHub</b><span>Code, scripts and the source for this site</span></a>
+    <a class="find-card" href="{{ site.Params.nexus }}"><b>Nexus Mods</b><span>My published game mods</span></a>
+    {{ with site.Home.OutputFormats.Get "rss" }}<a class="find-card" href="{{ .RelPermalink }}"><b>RSS</b><span>New posts in your feed reader</span></a>{{ end }}
+  </div>
+</section>
+{{ end }}

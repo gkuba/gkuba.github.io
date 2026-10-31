@@ -1,0 +1,29 @@
+{{ define "main" }}
+<header class="page-head">
+  <h1 class="page-title">{{ .Title }}</h1>
+  {{ with .Content }}<div class="lede">{{ . }}</div>{{ end }}
+</header>
+{{ $all := hugo.Data.projects.projects }}
+<div class="chips" role="group" aria-label="Filter projects">
+  <button type="button" class="chip" aria-pressed="true" data-filter="all">All <span>{{ len $all }}</span></button>
+  {{ range hugo.Data.projects.groups }}
+  <button type="button" class="chip c-{{ .color }}" aria-pressed="false" data-filter="{{ .id }}">{{ .name }} <span>{{ len (where $all "group" .id) }}</span></button>
+  {{ end }}
+</div>
+{{ range hugo.Data.projects.groups }}
+<section class="group" data-group="{{ .id }}">
+  <h2 class="sec" id="{{ .id }}">{{ .name }}</h2>
+  {{ with .blurb }}<p class="group-blurb">{{ . }}</p>{{ end }}
+  <div class="grid">{{ range where $all "group" .id }}{{ partial "project-card.html" . }}{{ end }}</div>
+</section>
+{{ end }}
+<script>
+  document.querySelectorAll(".chip").forEach((chip) => {
+    chip.addEventListener("click", () => {
+      const f = chip.dataset.filter;
+      document.querySelectorAll(".chip").forEach((c) => c.setAttribute("aria-pressed", c === chip));
+      document.querySelectorAll(".group").forEach((g) => { g.hidden = f !== "all" && g.dataset.group !== f; });
+    });
+  });
+</script>
+{{ end }}

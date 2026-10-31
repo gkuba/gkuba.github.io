@@ -1,0 +1,14 @@
+<header class="top">
+  <div class="wrap top-inner">
+    <a class="logo" href="{{ "/" | relURL }}" aria-label="{{ site.Title }} home">
+      <span class="p-user">gkuba</span><span class="p-dim">@</span><span class="p-host">tuxgamer</span>
+      <span class="p-path">~</span><span class="p-dim">$</span><span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="nav">
+      {{ range site.Menus.main }}
+        <a href="{{ .URL }}"{{ if or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }} aria-current="page"{{ end }}>{{ .Name }}</a>
+      {{ end }}
+      <button type="button" class="k-btn" data-palette-open aria-label="Search (Ctrl+K)"><span>Search</span><kbd>Ctrl K</kbd></button>
+    </nav>
+  </div>
+</header>

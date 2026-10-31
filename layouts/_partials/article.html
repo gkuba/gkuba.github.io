@@ -1,0 +1,20 @@
+{{ $isPost := eq .Section "posts" }}
+<article class="prose">
+  <h1 class="page-title">{{ .Title }}</h1>
+  {{ if $isPost }}
+  <p class="meta">
+    <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 Jan 2006" }}</time>
+    {{ if gt (.Lastmod.Sub .Date).Hours 24.0 }} · updated {{ .Lastmod.Format "2 Jan 2006" }}{{ end }}
+    · {{ .ReadingTime }} min read
+    {{ with .GetTerms "tags" }} · {{ range $i, $t := . }}{{ if $i }} {{ end }}<a href="{{ .RelPermalink }}">#{{ .LinkTitle }}</a>{{ end }}{{ end }}
+  </p>
+  {{ end }}
+  {{ if .Params.archived }}<div class="note">{{ .Params.archivedNote | default "This post is archived. It is kept for reference and may be out of date." | markdownify }}</div>{{ end }}
+  {{ .Content }}
+  {{ if $isPost }}
+  <nav class="pn" aria-label="More posts">
+    {{ with .PrevInSection }}<a class="pn-prev" href="{{ .RelPermalink }}"><span>← Older</span>{{ .Title }}</a>{{ else }}<span></span>{{ end }}
+    {{ with .NextInSection }}<a class="pn-next" href="{{ .RelPermalink }}"><span>Newer →</span>{{ .Title }}</a>{{ end }}
+  </nav>
+  {{ end }}
+</article>

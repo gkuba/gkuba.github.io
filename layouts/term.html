@@ -1,0 +1,14 @@
+{{ define "main" }}
+<header class="page-head">
+  <p class="crumbs"><a href="{{ "tags/" | relURL }}">Tags</a></p>
+  <h1 class="page-title"><span class="hash">#</span>{{ .Title }}</h1>
+  <p class="lede">{{ len .Pages }} {{ if eq (len .Pages) 1 }}thing{{ else }}things{{ end }} tagged {{ .Title }}.</p>
+</header>
+{{ $projects := where .Pages "Params.project" "!=" nil }}
+{{ with $projects }}
+<section><h2 class="sec">Projects</h2><div class="grid">{{ range . }}{{ partial "project-card.html" .Params.project }}{{ end }}</div></section>
+{{ end }}
+{{ with where .Pages "Section" "posts" }}
+<section><h2 class="sec">Posts</h2>{{ partial "post-list.html" . }}</section>
+{{ end }}
+{{ end }}

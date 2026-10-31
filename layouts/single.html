@@ -1,0 +1,8 @@
+{{ define "main" }}
+{{ $toc := and (eq .Section "posts") (gt (len .Fragments.Headings) 0) }}
+{{ if eq .Section "posts" }}<div class="progress" aria-hidden="true"></div>{{ end }}
+<div class="{{ if $toc }}with-toc{{ end }}">
+{{ partial "article.html" . }}
+{{ if $toc }}<aside class="toc"><p>On this page</p>{{ .TableOfContents }}</aside>{{ end }}
+</div>
+{{ end }}

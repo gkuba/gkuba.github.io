@@ -1,0 +1,4 @@
+{{/* Details page for a project entry: its own content page, or the generated one. */}}
+{{ $u := printf "/projects/%s/" (.name | urlize) }}
+{{ with .page }}{{ if hasPrefix . "/projects/" }}{{ $u = . }}{{ end }}{{ end }}
+{{ return ($u | relURL) }}

@@ -1,0 +1,20 @@
+{{/* Latest commits across the project repos, newest first. Empty if GitHub can't be reached. */}}
+{{ $all := slice }}
+{{ range hugo.Data.projects.projects }}
+  {{ $repo := .repo }}
+  {{ $name := .name }}
+  {{ with $repo }}
+    {{ $r := try (resources.GetRemote (printf "https://api.github.com/repos/%s/commits?per_page=4" .)) }}
+    {{ with $r }}
+      {{ with .Value }}
+        {{ range . | transform.Unmarshal }}
+          {{ $msg := index (split .commit.message "\n") 0 }}
+          {{ if not (hasPrefix $msg "Merge ") }}
+          {{ $all = $all | append (dict "project" $name "msg" $msg "url" .html_url "date" (time .commit.author.date) "sha" (substr .sha 0 7)) }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+{{ return first 6 (sort $all "date" "desc") }}

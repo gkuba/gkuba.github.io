@@ -1,0 +1,13 @@
+{{- $items := slice -}}
+{{- range hugo.Data.projects.projects -}}
+  {{- $url := partial "project-url.html" . -}}
+  {{- $body := "" }}{{ with site.GetPage (strings.TrimSuffix "/" $url) }}{{ $body = .Plain }}{{ end -}}
+  {{- $items = $items | append (dict "t" .name "k" "project" "u" $url "d" .blurb "c" ($body | replaceRE `\s+` " " | truncate 4000 "")) -}}
+{{- end -}}
+{{- range where site.RegularPages "Section" "posts" -}}
+  {{- $items = $items | append (dict "t" .Title "k" (cond (eq .Params.archived true) "archived post" "post") "u" .RelPermalink "d" (.Description | default .Summary | plainify | truncate 140) "c" (.Plain | replaceRE `\s+` " " | truncate 4000 "")) -}}
+{{- end -}}
+{{- range site.Menus.main }}{{ with .Page }}{{ $items = $items | append (dict "t" .Title "k" "page" "u" .RelPermalink "d" .Description "c" (.Plain | replaceRE `\s+` " " | truncate 4000 "")) }}{{ end }}{{ end -}}
+{{- $items = $items | append (dict "t" "GitHub" "k" "link" "u" site.Params.github "d" "github.com/gkuba") -}}
+{{- $items = $items | append (dict "t" "Nexus Mods" "k" "link" "u" site.Params.nexus "d" "Mods on Nexus") -}}
+{{- $items | jsonify -}}

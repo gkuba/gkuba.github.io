@@ -1,0 +1,41 @@
+{{ define "main" }}
+{{ with .Params.project }}
+{{ $p := . }}
+{{ $group := index (where hugo.Data.projects.groups "id" .group) 0 }}
+{{ $gh := dict }}
+{{ with .repo }}{{ $gh = index (partialCached "gh-repos.html" "gh") (index (split . "/") 1) | default dict }}{{ end }}
+<div class="progress" aria-hidden="true"></div>
+<article class="proj c-{{ $group.color }}">
+  <p class="crumbs"><a href="{{ "projects/" | relURL }}">Projects</a> / <a href="{{ printf "projects/#%s" .group | relURL }}">{{ $group.name }}</a></p>
+  <header class="proj-head">
+    <div>
+      <h1 class="page-title">{{ .name }} {{ with .status }}<span class="badge b-{{ . }}">{{ . }}</span>{{ end }}</h1>
+      <p class="lede">{{ .blurb }}</p>
+      {{ if or $gh.language $gh.pushed_at }}
+      <p class="gh-meta">
+        {{ with $gh.language }}<span class="lang lang-{{ . | urlize }}">{{ . }}</span>{{ end }}
+        {{ with $gh.pushed_at }}<span>updated {{ (time .).Format "2 Jan 2006" }}</span>{{ end }}
+        {{ with $gh.created_at }}<span>started {{ (time .).Format "Jan 2006" }}</span>{{ end }}
+      </p>
+      {{ end }}
+      <p class="cta">
+        {{ with .repo }}<a class="btn" href="https://github.com/{{ . }}">View on GitHub ↗</a>{{ end }}
+        {{ with .nexus }}<a class="btn" href="{{ . }}">Get it on Nexus ↗</a>{{ end }}
+        {{ with .page }}{{ if hasPrefix . "/posts/" }}<a class="btn ghost" href="{{ . | relURL }}">Read the write-up</a>{{ end }}{{ end }}
+      </p>
+    </div>
+  </header>
+  {{ with .image }}{{ with resources.Get (printf "images/%s" .) }}{{ $i := .Resize "1200x webp q82" }}
+  <img class="proj-img" src="{{ $i.RelPermalink }}" width="{{ $i.Width }}" height="{{ $i.Height }}" alt="{{ $p.name }} screenshot">
+  {{ end }}{{ end }}
+  {{ with .install }}<h2 class="sec">Install</h2><pre class="cmd"><code>{{ . }}</code></pre>{{ end }}
+  {{ with .tags }}<ul class="tags proj-tags">{{ range . }}<li>{{ with partial "tag-url.html" . }}<a href="{{ . }}">{{ end }}{{ . }}{{ with partial "tag-url.html" . }}</a>{{ end }}</li>{{ end }}</ul>{{ end }}
+  {{ with $.Content }}
+  <h2 class="sec">From the README</h2>
+  <div class="prose readme">{{ . }}</div>
+  {{ end }}
+</article>
+{{ else }}
+{{ partial "article.html" . }}
+{{ end }}
+{{ end }}

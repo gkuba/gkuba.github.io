@@ -1,0 +1,33 @@
+rig:
+  - { k: CPU, v: Intel Core i9-14900K }
+  - { k: GPU, v: NVIDIA RTX 4090 }
+  - { k: RAM, v: 64 GB DDR4 }
+  - { k: Board, v: MSI PRO Z790-P WIFI }
+groups:
+  - name: Systems
+    color: green
+    items:
+      - { k: Daily driver, v: "CachyOS (Arch based), for gaming and coding" }
+      - { k: Servers, v: Debian }
+      - { k: Desktop, v: "KDE Plasma 6 on Wayland, or Dank Shell on Hyprland" }
+  - name: Terminal
+    color: cyan
+    items:
+      - { k: Shell, v: Zsh }
+      - { k: Prompt, v: Starship }
+      - { k: Editor, v: Neovim }
+      - { k: Font, v: Fira Code }
+  - name: Tools
+    color: pink
+    items:
+      - { k: Code, v: "Git, GitHub, Claude Code" }
+      - { k: Notes, v: Obsidian }
+      - { k: Containers, v: Docker }
+      - { k: Game server panel, v: "CubeCoders AMP", u: "https://cubecoders.com/AMP" }
+  - name: This site
+    color: purple
+    items:
+      - { k: Built with, v: Hugo }
+      - { k: Hosted on, v: GitHub Pages }
+      - { k: Theme, v: "Custom, Dracula colours" }
+      - { k: Fonts, v: "Inter, JetBrains Mono" }
