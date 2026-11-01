@@ -8,7 +8,7 @@ enableRobotsTXT = true
   author = "GKuba"
   description = "Linux setup scripts, small tools and game mods by GKuba."
   github = "https://github.com/gkuba"
-  now = "Rebuilding this site, polishing ProgressCrabs, and planning ReelAnvil. My desktop runs on Arch-GKuba and gets tuned most weekends."
+  now = "Shipped ProgressCrabs 0.5 with its Crab Tasks pane, and planning ReelAnvil. My desktop runs on Arch-GKuba and gets tuned most weekends."
   nexus = "https://www.nexusmods.com/users/3362321?tab=user+files"
 
 [outputs]

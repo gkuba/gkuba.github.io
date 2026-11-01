@@ -48,9 +48,10 @@ projects:
     image: progresscrabs.png
     group: tools
     featured: true
-    blurb: Claude Code mod that adds a live progress band above the prompt and a side-session panel drawn as little crabs. Dracula by default, with ten more themes.
+    blurb: Claude Code mod that adds a live progress band above the prompt, a Crab Tasks pane with a bar per step, and a side-session panel drawn as little crabs. Dracula by default, with ten more themes.
     tags: [TypeScript, Claude Code]
     repo: gkuba/ProgressCrabs
+    install: /plugin install progress-crabs --marketplace gkuba/ProgressCrabs
 
   - name: InstallScriptTemplate
     group: tools
