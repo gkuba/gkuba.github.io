@@ -1,4 +1,4 @@
-baseURL = "https://gkuba.tuxgamer.com/"
+baseURL = "https://tuxgamer.com/"
 locale = "en-us"
 title = "GKuba"
 enableGitInfo = true

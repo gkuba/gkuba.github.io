@@ -5,8 +5,8 @@
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
 <meta property="og:url" content="{{ .Permalink }}">
 <meta property="og:site_name" content="{{ site.Title }}">
-{{ $kicker := "gkuba.tuxgamer.com" }}
-{{ if eq .Section "posts" }}{{ $kicker = "gkuba.tuxgamer.com / posts" }}{{ else if eq .Section "projects" }}{{ $kicker = "gkuba.tuxgamer.com / projects" }}{{ end }}
+{{ $kicker := "tuxgamer.com" }}
+{{ if eq .Section "posts" }}{{ $kicker = "tuxgamer.com / posts" }}{{ else if eq .Section "projects" }}{{ $kicker = "tuxgamer.com / projects" }}{{ end }}
 {{ $bold := resources.Get "fonts/Inter-ExtraBold.ttf" }}
 {{ $mono := resources.Get "fonts/JetBrainsMono-Medium.ttf" }}
 {{ $img := resources.Get "images/og-base.png" | images.Filter
