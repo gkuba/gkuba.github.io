@@ -1,0 +1,8 @@
+{
+  "name": "gkuba-github-io",
+  "compatibility_date": "2026-11-08",
+  "assets": {
+    "directory": "./public",
+    "not_found_handling": "404-page"
+  }
+}
