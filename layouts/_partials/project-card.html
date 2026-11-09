@@ -3,6 +3,7 @@
 {{ with .repo }}{{ $gh = index (partialCached "gh-repos.html" "gh") (index (split . "/") 1) | default dict }}{{ end }}
 {{ $href := partial "project-url.html" . }}
 <article class="card c-{{ $group.color }}{{ if .image }} has-img{{ end }}" data-group="{{ .group }}">
+  <div class="win-bar"><span>{{ .name | lower | replaceRE "[^a-z0-9]+" "-" }} — {{ $group.name | lower }}</span></div>
   {{ with .image }}{{ with resources.Get (printf "images/%s" .) }}{{ $i := .Resize "640x webp q80" }}
   <img class="card-img" src="{{ $i.RelPermalink }}" width="{{ $i.Width }}" height="{{ $i.Height }}" alt="" loading="lazy" decoding="async">
   {{ end }}{{ end }}

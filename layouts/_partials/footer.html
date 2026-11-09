@@ -1,10 +1,25 @@
 <footer class="foot">
-  <div class="wrap foot-inner">
-    <span>© {{ now.Year }} {{ site.Params.author }}</span>
-    <span class="foot-links">
-      <a href="{{ site.Params.github }}">GitHub</a>
-      <a href="{{ site.Params.nexus }}">Nexus Mods</a>
-      <a href="{{ "index.xml" | relURL }}">RSS</a>
-    </span>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="logo" href="{{ "/" | relURL }}"><span class="p-user">gkuba</span><span class="p-host">@tuxgamer</span></a>
+        <p>A computer nerd who likes making machines behave. Open source where possible.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        {{ range site.Menus.main }}<a href="{{ .URL }}">{{ .Name }}</a>{{ end }}
+      </div>
+      <div>
+        <h4>Elsewhere</h4>
+        <a href="{{ site.Params.github }}">GitHub</a>
+        <a href="{{ site.Params.nexus }}">Nexus Mods</a>
+      </div>
+      <div>
+        <h4>Site</h4>
+        <a href="{{ "index.xml" | relURL }}">RSS</a>
+        <a href="{{ "tags/" | relURL }}">Tags</a>
+      </div>
+    </div>
+    <div class="foot-legal"><span>© {{ now.Year }} {{ site.Params.author }}</span><span>Hugo · Cloudflare</span></div>
   </div>
 </footer>

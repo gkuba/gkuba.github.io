@@ -5,6 +5,7 @@ enableGitInfo = true
 enableRobotsTXT = true
 
 [params]
+  spotlight = "ProgressCrabs"
   author = "GKuba"
   description = "Linux setup scripts, small tools and game mods by GKuba."
   github = "https://github.com/gkuba"

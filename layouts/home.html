@@ -27,10 +27,28 @@
   </div>
 </section>
 
+{{ range where $projects "name" site.Params.spotlight }}
+<section class="spot">
+  <h2 class="sec">Spotlight</h2>
+  <article class="spot-card">
+    {{ with .image }}{{ with resources.Get (printf "images/%s" .) }}{{ $i := .Resize "900x webp q82" }}
+    <div class="spot-img"><img src="{{ $i.RelPermalink }}" width="{{ $i.Width }}" height="{{ $i.Height }}" alt="" decoding="async"></div>
+    {{ end }}{{ end }}
+    <div class="spot-body">
+      <span class="spot-kicker"><span class="dot"></span> Latest release</span>
+      <h3>{{ .name }}</h3>
+      <p>{{ .blurb }}</p>
+      {{ with .install }}<pre class="cmd"><code>{{ . }}</code></pre>{{ end }}
+      <p class="cta"><a class="btn" href="{{ partial "project-url.html" . }}">View project</a>{{ with .repo }}<a class="btn ghost" href="https://github.com/{{ . }}">GitHub ↗</a>{{ end }}</p>
+    </div>
+  </article>
+</section>
+{{ end }}
+
 <section>
   <h2 class="sec">Featured</h2>
   <div class="grid">
-    {{ range where $projects "featured" true }}{{ partial "project-card.html" . }}{{ end }}
+    {{ range where (where $projects "featured" true) "name" "ne" site.Params.spotlight }}{{ partial "project-card.html" . }}{{ end }}
   </div>
   <p class="more"><a href="{{ "projects/" | relURL }}">All {{ len $projects }} projects →</a></p>
 </section>

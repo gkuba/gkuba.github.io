@@ -15,10 +15,11 @@
   {{ with .OutputFormats.Get "rss" }}<link rel="alternate" type="application/rss+xml" href="{{ .RelPermalink }}" title="{{ site.Title }}">{{ end }}
   {{ partial "opengraph.html" . }}
 </head>
-<body>
+<body{{ if not .IsHome }} class="slim"{{ end }}>
   <a class="skip" href="#main">Skip to content</a>
   {{ partial "header.html" . }}
   <main class="wrap" id="main" tabindex="-1">{{ block "main" . }}{{ end }}</main>
+  <div class="sky" aria-hidden="true"></div>
   {{ partial "footer.html" . }}
   {{ partial "palette.html" . }}
   {{ $js := slice (resources.Get "js/copy.js") (resources.Get "js/fx.js") (resources.Get "js/palette.js") (resources.Get "js/term.js") | resources.Concat "js/site.js" | minify | fingerprint }}
