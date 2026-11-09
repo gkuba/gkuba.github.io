@@ -22,12 +22,13 @@ groups:
     items:
       - { k: Code, v: "Git, GitHub, Claude Code" }
       - { k: Notes, v: Obsidian }
-      - { k: Containers, v: Docker }
+      - { k: Containers, v: "Docker and Podman" }
+      - { k: Dashboard, v: "Homepage", u: "https://github.com/gkuba/Pixelville-Homepage" }
       - { k: Game server panel, v: "CubeCoders AMP", u: "https://cubecoders.com/AMP" }
   - name: This site
     color: purple
     items:
       - { k: Built with, v: Hugo }
-      - { k: Hosted on, v: GitHub Pages }
+      - { k: Hosted on, v: Cloudflare }
       - { k: Theme, v: "Custom, Dracula colours" }
       - { k: Fonts, v: "Inter, JetBrains Mono" }

@@ -59,6 +59,12 @@ projects:
     tags: [Bash, TUI]
     repo: gkuba/InstallScriptTemplate
 
+  - name: Pixelville-Homepage
+    group: tools
+    blurb: Dracula-themed Homepage dashboard for a home lab. A Dockge stack with custom CSS and service widgets for network, DNS, game servers, media and calendar.
+    tags: [Docker, Dockge, Homelab]
+    repo: gkuba/Pixelville-Homepage
+
   - name: ReelAnvil
     image: reelanvil.png
     group: tools
